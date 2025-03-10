@@ -5,12 +5,15 @@ services:
     container_name: cse327project
     volumes:
       - .:/workspace
+      - ./data:/workspace/data
+      - ./models:/workspace/models
+      - ./outputs:/workspace/outputs
     working_dir: /workspace
-    # 컨테이너가 계속 실행되도록 설정
     tty: true
     stdin_open: true
-    # 컨테이너가 시작할 때 실행할 명령어
-    command: bash
+    ports:
+      - "5000:5000"
+      - "6006:6006"
     deploy:
       resources:
         reservations:
@@ -18,3 +21,8 @@ services:
             - driver: nvidia
               count: 1
               capabilities: [gpu]
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+    command: bash
+    # 공유 메모리 크기 증가
+    shm_size: "16gb" # 8GB로 설정 (필요에 따라 조정)
