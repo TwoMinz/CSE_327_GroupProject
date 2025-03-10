@@ -1,0 +1,17 @@
+version: "3"
+services:
+  crowd-vit:
+    build: .
+    volumes:
+      - .:/app
+      - ./data:/app/data
+      - ./models:/app/models
+      - ./outputs:/app/outputs
+    # GPU 지원 (데스크톱에서만 활성화)
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: 1
+    #           capabilities: [gpu]
