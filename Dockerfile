@@ -1,5 +1,5 @@
 # PyTorch 공식 이미지(CUDA 12.1 지원) 사용
-FROM pytorch/pytorch:2.1.0-cuda12.1-cudnn8-runtime
+FROM  pytorch/pytorch:2.1.0-cuda12.1-cudnn8-runtime
 
 # 작업 디렉토리 설정
 WORKDIR /app

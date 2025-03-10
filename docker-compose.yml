@@ -1,17 +1,14 @@
 version: "3"
 services:
   crowd-vit:
-    build: .
+    image: pytorch/pytorch:2.1.0-cuda12.1-cudnn8-runtime
+    container_name: crowd-vit-container
     volumes:
-      - .:/app
-      - ./data:/app/data
-      - ./models:/app/models
-      - ./outputs:/app/outputs
-    # GPU 지원 (데스크톱에서만 활성화)
-    # deploy:
-    #   resources:
-    #     reservations:
-    #       devices:
-    #         - driver: nvidia
-    #           count: 1
-    #           capabilities: [gpu]
+      - .:/workspace
+      - ./data:/workspace/data
+      - ./models:/workspace/models
+      - ./outputs:/workspace/outputs
+    working_dir: /workspace
+    # GPU 지원은 macOS에서는 사용 불가
+    # macOS에서는 NVIDIA GPU 지원이 없으므로 CPU로 실행됩니다
+    command: ["tail", "-f", "/dev/null"]
