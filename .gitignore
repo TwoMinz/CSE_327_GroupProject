@@ -1,0 +1,15 @@
+# 데이터셋
+/data/
+/ShanghaiTech/
+
+# 모델 체크포인트
+/outputs/
+/models/
+*.pth
+
+# Docker 관련
+.docker/
+
+# 환경 관련
+venv/
+.env
