@@ -15,7 +15,7 @@ import matplotlib.pyplot as plt
 
 from src.config import MODEL_CONFIG, TRAIN_CONFIG, DEVICE, CHECKPOINT_DIR, LOG_DIR, get_experiment_name
 from src.data_utils.dataset import get_dataloaders
-from src.models.transcrowd import TransCrowd
+from src.models.transcrowd import TransCrowd, ensure_model_on_device
 from src.models.loss import CombinedLoss
 from src.utils.metrics import evaluate_model, mean_absolute_error
 from src.utils.visualization import visualize_training_progress, visualize_model_predictions
@@ -245,6 +245,7 @@ def train(args):
 
     # Create model
     model = TransCrowd(MODEL_CONFIG)
+    model = ensure_model_on_device(model, DEVICE)
     model = model.to(DEVICE)
 
     # Create criterion, optimizer, and scheduler

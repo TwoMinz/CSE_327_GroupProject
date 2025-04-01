@@ -27,15 +27,36 @@ def load_model(checkpoint_path, device):
     Returns:
         nn.Module: Loaded model.
     """
+    # Check if checkpoint exists
+    if not os.path.exists(checkpoint_path):
+        print(f"Checkpoint not found: {checkpoint_path}")
+        print("You need to train the model first or provide a valid checkpoint path.")
+        exit(1)
+
     # Load checkpoint
     checkpoint = torch.load(checkpoint_path, map_location=device)
 
-    # Get config
+    # Get config, with fallback to MODEL_CONFIG
     config = checkpoint.get('config', MODEL_CONFIG)
+
+    # Ensure all required keys are present in config
+    for key in ['img_size', 'patch_size', 'in_channels', 'embed_dim', 'depths',
+                'num_heads', 'window_size', 'dropout_rate', 'use_checkpoint']:
+        if key not in config:
+            config[key] = MODEL_CONFIG[key]
+            print(f"Warning: Missing '{key}' in checkpoint config, using default value: {MODEL_CONFIG[key]}")
 
     # Create model
     model = TransCrowd(config)
-    model.load_state_dict(checkpoint['model_state_dict'])
+
+    # Try loading state dict with error handling
+    try:
+        model.load_state_dict(checkpoint['model_state_dict'])
+    except Exception as e:
+        print(f"Error loading model state dict: {e}")
+        print("The checkpoint might be incompatible with the current model architecture.")
+        exit(1)
+
     model = model.to(device)
     model.eval()
 

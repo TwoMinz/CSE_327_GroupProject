@@ -141,7 +141,10 @@ class WindowAttention(nn.Module):
 
         # cosine attention
         attn = (F.normalize(q, dim=-1) @ F.normalize(k, dim=-1).transpose(-2, -1))
-        logit_scale = torch.clamp(self.logit_scale, max=torch.log(torch.tensor(1. / 0.01))).exp()
+
+        # Create the max value for clamping on the same device as self.logit_scale
+        max_val = torch.log(torch.tensor(1. / 0.01, device=self.logit_scale.device))
+        logit_scale = torch.clamp(self.logit_scale, max=max_val).exp()
         attn = attn * logit_scale
 
         relative_position_bias_table = self.cpb_mlp(self.relative_coords_table).view(
@@ -550,11 +553,15 @@ class TransCrowd(nn.Module):
     to predict crowd count.
     """
 
-    def __init__(self, config=None):
+    def __init__(self, config=None, device=None):
         super(TransCrowd, self).__init__()
 
         if config is None:
             config = MODEL_CONFIG
+
+        # Get device
+        if device is None:
+            device = DEVICE
 
         # Initialize backbone
         self.backbone = SwinTransformerV2(
@@ -578,6 +585,9 @@ class TransCrowd(nn.Module):
             nn.Linear(256, 1)
         )
 
+        # Move to device
+        self.to(device)
+
     def forward(self, x):
         """
         Forward pass through the model.
@@ -595,3 +605,33 @@ class TransCrowd(nn.Module):
         count = self.regression_head(features)
 
         return count.squeeze(-1)  # Return (B,) tensor
+
+
+def ensure_model_on_device(model, device):
+    """
+    Ensure all parts of a model are on the same device.
+    This can help find and fix device mismatches.
+
+    Args:
+        model (nn.Module): Model to check
+        device (torch.device): Target device
+
+    Returns:
+        nn.Module: Model with all parts on the same device
+    """
+    # First move the model itself
+    model = model.to(device)
+
+    # Check if any buffers or parameters might still be on the wrong device
+    for name, buf in model.named_buffers():
+        if buf.device != device:
+            print(f"Moving buffer {name} from {buf.device} to {device}")
+            model._buffers[name.split('.')[-1]] = buf.to(device)
+
+    for name, param in model.named_parameters():
+        if param.device != device:
+            print(f"Moving parameter {name} from {param.device} to {device}")
+            if '.' not in name:  # top level param
+                model._parameters[name] = param.to(device)
+
+    return model

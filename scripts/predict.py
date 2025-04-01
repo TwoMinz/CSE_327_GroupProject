@@ -11,7 +11,7 @@ import torchvision.transforms as transforms
 import matplotlib.pyplot as plt
 
 from src.config import MODEL_CONFIG, DEVICE, CHECKPOINT_DIR, OUTPUT_DIR
-from src.models.transcrowd import TransCrowd
+from src.models.transcrowd import TransCrowd, ensure_model_on_device
 from src.data_utils.dataset import get_transforms
 
 
@@ -123,6 +123,7 @@ def predict(args):
     # Load model
     print(f"Loading model from {checkpoint_path}...")
     model = load_model(checkpoint_path, DEVICE)
+    model = ensure_model_on_device(model, DEVICE)
 
     # Get transform
     _, transform = get_transforms(MODEL_CONFIG['img_size'])

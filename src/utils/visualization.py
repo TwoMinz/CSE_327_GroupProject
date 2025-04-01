@@ -84,6 +84,8 @@ def visualize_count_comparison(image_batch, pred_counts, gt_counts, save_path=No
     if save_path:
         plt.savefig(save_path, bbox_inches='tight')
 
+    plt.close(fig)
+
     return fig
 
 
