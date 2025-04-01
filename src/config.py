@@ -30,21 +30,21 @@ MODEL_CONFIG = {
     'depths': [2, 2, 18, 2],            # Depths of each Swin Transformer stage
     'num_heads': [4, 8, 16, 32],        # Number of attention heads in different layers
     'window_size': 12,                  # Window size for Swin Transformer
-    'dropout_rate': 0.1,                # Dropout rate
-    'use_checkpoint': False,            # Whether to use checkpointing to save memory
+    'dropout_rate': 0.2,                # Dropout rate
+    'use_checkpoint': True,            # Whether to use checkpointing to save memory
 }
 
 # Training configuration
 TRAIN_CONFIG = {
     'part': 'A',                        # Dataset part to use: 'A' or 'B'
-    'batch_size': 16,                   # Batch size for training
-    'num_epochs': 100,                  # Maximum number of epochs
-    'learning_rate': 5e-4,              # Initial learning rate
+    'batch_size': 32,                   # Batch size for training
+    'num_epochs': 150,                  # Maximum number of epochs
+    'learning_rate': 1e-4,              # Initial learning rate
     'weight_decay': 1e-4,               # Weight decay
     'lr_scheduler': 'cosine',           # Learning rate scheduler: 'step', 'cosine'
     'lr_decay_epochs': [40, 80],        # Epochs at which to decay learning rate (if using 'step')
     'lr_decay_rate': 0.1,               # Learning rate decay factor (if using 'step')
-    'warmup_epochs': 5,                 # Number of warmup epochs
+    'warmup_epochs': 10,                 # Number of warmup epochs
     'early_stopping_patience': 10,      # Patience for early stopping
     'grad_clip_norm': 1.0,              # Gradient clipping norm
     'seed': 42,                         # Random seed for reproducibility
