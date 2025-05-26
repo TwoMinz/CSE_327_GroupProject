@@ -109,18 +109,18 @@ class DINOv2WithRegression(nn.Module):
 
         # 체크포인트와 정확히 일치하는 regression head
         self.regression_head = nn.Sequential(
-            nn.LayerNorm(self.backbone.num_features),      # 0: LayerNorm [768]
-            nn.Dropout(dropout_rate),                      # 1: Dropout
-            nn.Linear(self.backbone.num_features, 256),    # 2: Linear [256, 768]
-            nn.ReLU(inplace=True),                         # 3: ReLU
-            nn.Dropout(dropout_rate),                      # 4: Dropout
-            nn.Linear(256, 128),                           # 5: Linear [128, 256]
-            nn.ReLU(inplace=True),                         # 6: ReLU
-            nn.Dropout(dropout_rate),                      # 7: Dropout
-            nn.Linear(128, 64),                            # 8: Linear [64, 128]
-            nn.ReLU(inplace=True),                         # 9: ReLU
-            nn.Dropout(dropout_rate),                      # 10: Dropout
-            nn.Linear(64, 1)                               # 11: Linear [1, 64]
+            nn.LayerNorm(self.backbone.num_features),  # 0: LayerNorm [768]
+            nn.Dropout(dropout_rate),  # 1: Dropout
+            nn.Linear(self.backbone.num_features, 256),  # 2: Linear [256, 768]
+            nn.ReLU(inplace=True),  # 3: ReLU
+            nn.Dropout(dropout_rate),  # 4: Dropout
+            nn.Linear(256, 128),  # 5: Linear [128, 256]
+            nn.ReLU(inplace=True),  # 6: ReLU
+            nn.Dropout(dropout_rate),  # 7: Dropout
+            nn.Linear(128, 64),  # 8: Linear [64, 128]
+            nn.ReLU(inplace=True),  # 9: ReLU
+            nn.Dropout(dropout_rate),  # 10: Dropout
+            nn.Linear(64, 1)  # 11: Linear [1, 64]
         )
 
     def forward(self, x):
@@ -372,10 +372,13 @@ def test_dinov2_model():
     print(f"  Median Error: {np.median(abs_errors):.2f}")
 
     print(f"\nError Distribution:")
-    print(f"  Errors ≤ 50: {np.sum(abs_errors <= 50)} images ({np.sum(abs_errors <= 50)/len(abs_errors)*100:.1f}%)")
-    print(f"  Errors ≤ 100: {np.sum(abs_errors <= 100)} images ({np.sum(abs_errors <= 100)/len(abs_errors)*100:.1f}%)")
-    print(f"  Errors ≤ 200: {np.sum(abs_errors <= 200)} images ({np.sum(abs_errors <= 200)/len(abs_errors)*100:.1f}%)")
-    print(f"  Errors > 200: {np.sum(abs_errors > 200)} images ({np.sum(abs_errors > 200)/len(abs_errors)*100:.1f}%)")
+    print(f"  Errors ≤ 50: {np.sum(abs_errors <= 50)} images ({np.sum(abs_errors <= 50) / len(abs_errors) * 100:.1f}%)")
+    print(
+        f"  Errors ≤ 100: {np.sum(abs_errors <= 100)} images ({np.sum(abs_errors <= 100) / len(abs_errors) * 100:.1f}%)")
+    print(
+        f"  Errors ≤ 200: {np.sum(abs_errors <= 200)} images ({np.sum(abs_errors <= 200) / len(abs_errors) * 100:.1f}%)")
+    print(
+        f"  Errors > 200: {np.sum(abs_errors > 200)} images ({np.sum(abs_errors > 200) / len(abs_errors) * 100:.1f}%)")
 
     # 성능 요약
     print(f"\n" + "=" * 80)
@@ -415,4 +418,5 @@ if __name__ == "__main__":
     except Exception as e:
         print(f"Error: {str(e)}")
         import traceback
+
         traceback.print_exc()
