@@ -155,6 +155,91 @@ EXPERIMENT_6_CONFIG = {
     }
 }
 
+EXPERIMENT_7_CONFIG = {
+    'name': 'dinov2_max_performance',
+    'description': '14GB VRAM 최대 활용 고성능 설정',
+    'model_config': {
+        'backbone': 'dinov2',
+        'img_size': 448,  # 384 → 448 (더 큰 입력 해상도)
+        'dinov2_size': 'large',  # base → large (더 큰 모델)
+        'pretrained': True,
+        'freeze_backbone': False,  # 전체 fine-tuning
+        'dropout_rate': 0.15,  # 적절한 정규화
+    },
+    'train_config': {
+        'part': 'A',
+        'batch_size': 32,  # 16 → 32 (VRAM 여유로 배치 크기 증가)
+
+        # 더 긴 훈련으로 성능 극대화
+        'stage1_epochs': 60,  # 30 → 60 (더 긴 regression head 훈련)
+        'stage2_epochs': 150,  # 120 → 150 (더 긴 fine-tuning)
+
+        # 더 세밀한 학습률 설정
+        'stage1_learning_rate': 3e-4,  # 더 낮은 시작 학습률
+        'stage2_learning_rate': 1e-6,  # 매우 세밀한 fine-tuning
+
+        # 강화된 정규화
+        'stage1_weight_decay': 1e-3,
+        'stage2_weight_decay': 1e-3,
+
+        'lr_scheduler': 'cosine',
+        'warmup_epochs': 10,  # 더 긴 warmup
+        'early_stopping_patience': 25,  # 더 긴 patience
+        'grad_clip_norm': 0.3,
+        'seed': 42,
+        'num_workers': 8,  # 더 많은 worker
+        'pin_memory': True,
+        'log_freq': 5,  # 더 자주 로그
+
+        # 고급 기법들
+        'data_augmentation': 'strong',
+        'mixup_alpha': 0.1,
+        'label_smoothing': 0.05,
+    }
+}
+
+# =============================================================================
+# 실험 8: 메모리 극한 도전 (Giant 모델)
+# =============================================================================
+EXPERIMENT_8_CONFIG = {
+    'name': 'dinov2_giant_challenge',
+    'description': '메모리 한계 도전 - Giant 모델',
+    'model_config': {
+        'backbone': 'dinov2',
+        'img_size': 392,  # Giant는 메모리 많이 써서 해상도 조금 낮춤
+        'dinov2_size': 'giant',  # 가장 큰 모델
+        'pretrained': True,
+        'freeze_backbone': True,  # Giant는 freeze해서 메모리 절약
+        'dropout_rate': 0.2,
+    },
+    'train_config': {
+        'part': 'A',
+        'batch_size': 16,  # Giant 모델이라 배치 크기 조정
+
+        'stage1_epochs': 80,  # 매우 긴 stage1 (백본 freeze)
+        'stage2_epochs': 60,  # 짧은 stage2
+
+        'stage1_learning_rate': 5e-4,
+        'stage2_learning_rate': 5e-7,  # 매우 낮은 학습률
+
+        'stage1_weight_decay': 5e-4,
+        'stage2_weight_decay': 5e-4,
+
+        'freeze_backbone_stage2': True,  # Stage2에서도 백본 동결
+
+        'lr_scheduler': 'cosine',
+        'warmup_epochs': 15,
+        'early_stopping_patience': 20,
+        'grad_clip_norm': 0.5,
+        'seed': 42,
+        'num_workers': 6,
+        'pin_memory': True,
+        'log_freq': 10,
+
+        'data_augmentation': 'strong',
+    }
+}
+
 # 모든 실험 설정 리스트
 ALL_EXPERIMENTS = [
     EXPERIMENT_1_CONFIG,
@@ -163,6 +248,8 @@ ALL_EXPERIMENTS = [
     EXPERIMENT_4_CONFIG,
     EXPERIMENT_5_CONFIG,
     EXPERIMENT_6_CONFIG,
+    EXPERIMENT_7_CONFIG,
+    EXPERIMENT_8_CONFIG
 ]
 
 

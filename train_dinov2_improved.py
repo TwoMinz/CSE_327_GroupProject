@@ -643,8 +643,8 @@ def enhanced_early_stopping(val_maes, patience, min_delta=0.5):
 def main():
     """Enhanced main training function"""
     parser = argparse.ArgumentParser(description='Train improved DINOv2 model')
-    parser.add_argument('--experiment', type=int, required=True, choices=range(1, 7),
-                        help='Experiment number (1-6)')
+    parser.add_argument('--experiment', type=int, required=True, choices=range(1, 9),
+                        help='Experiment number (1-8)')
     parser.add_argument('--custom-name', type=str, default=None, help='Custom experiment name')
 
     args = parser.parse_args()
