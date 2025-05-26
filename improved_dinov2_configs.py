@@ -156,45 +156,48 @@ EXPERIMENT_6_CONFIG = {
 }
 
 EXPERIMENT_7_CONFIG = {
-    'name': 'dinov2_max_performance',
-    'description': '14GB VRAM 최대 활용 고성능 설정',
+'name': 'dinov2_max_performance_fixed',
+    'description': '오버피팅 해결된 고성능 설정 - 강화된 정규화',
     'model_config': {
         'backbone': 'dinov2',
-        'img_size': 448,  # 384 → 448 (더 큰 입력 해상도)
-        'dinov2_size': 'large',  # base → large (더 큰 모델)
+        'img_size': 448,  # 448 → 392 (메모리와 오버피팅 완화)
+        'dinov2_size': 'large',  # large → base (모델 크기 축소로 오버피팅 완화)
         'pretrained': True,
-        'freeze_backbone': False,  # 전체 fine-tuning
-        'dropout_rate': 0.15,  # 적절한 정규화
+        'freeze_backbone': True,  # False → True (Stage 1에서 백본 동결)
+        'dropout_rate': 0.4,  # 0.15 → 0.4 (매우 강한 드롭아웃)
     },
     'train_config': {
         'part': 'A',
-        'batch_size': 32,  # 16 → 32 (VRAM 여유로 배치 크기 증가)
+        'batch_size': 24,  # 32 → 24 (약간 축소)
 
-        # 더 긴 훈련으로 성능 극대화
-        'stage1_epochs': 60,  # 30 → 60 (더 긴 regression head 훈련)
-        'stage2_epochs': 150,  # 120 → 150 (더 긴 fine-tuning)
+        # 훨씬 보수적인 훈련 길이
+        'stage1_epochs': 40,  # 60 → 40
+        'stage2_epochs': 60,  # 150 → 60 (매우 짧게)
 
-        # 더 세밀한 학습률 설정
-        'stage1_learning_rate': 3e-4,  # 더 낮은 시작 학습률
-        'stage2_learning_rate': 1e-6,  # 매우 세밀한 fine-tuning
+        # 매우 보수적인 학습률
+        'stage1_learning_rate': 1e-4,  # 3e-4 → 1e-4 (더 낮게)
+        'stage2_learning_rate': 5e-7,  # 1e-6 → 5e-7 (더더욱 낮게)
 
-        # 강화된 정규화
-        'stage1_weight_decay': 1e-3,
-        'stage2_weight_decay': 1e-3,
+        # 매우 강한 정규화
+        'stage1_weight_decay': 5e-3,  # 1e-3 → 5e-3 (5배 증가)
+        'stage2_weight_decay': 5e-3,  # 매우 강한 weight decay
+
+        # Stage 2에서도 백본 동결 옵션 추가
+        'freeze_backbone_stage2': True,  # 새로 추가: Stage 2에서도 백본 동결
 
         'lr_scheduler': 'cosine',
-        'warmup_epochs': 10,  # 더 긴 warmup
-        'early_stopping_patience': 25,  # 더 긴 patience
-        'grad_clip_norm': 0.3,
+        'warmup_epochs': 8,  # 10 → 8
+        'early_stopping_patience': 12,  # 25 → 12 (더 빠른 조기 종료)
+        'grad_clip_norm': 0.1,  # 0.3 → 0.1 (더 강한 gradient clipping)
         'seed': 42,
-        'num_workers': 8,  # 더 많은 worker
+        'num_workers': 6,  # 8 → 6
         'pin_memory': True,
-        'log_freq': 5,  # 더 자주 로그
+        'log_freq': 10,
 
-        # 고급 기법들
+        # 정규화 기법들 강화
         'data_augmentation': 'strong',
-        'mixup_alpha': 0.1,
-        'label_smoothing': 0.05,
+        'mixup_alpha': 0.3,  # 0.1 → 0.3 (더 강한 mixup)
+        'label_smoothing': 0.15,  # 0.05 → 0.15 (더 강한 label smoothing)
     }
 }
 

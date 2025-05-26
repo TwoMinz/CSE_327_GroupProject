@@ -5,9 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="29813409-92a2-48a5-ab19-5efc3afd2bcd" name="변경" comment="">
+      <change afterPath="$PROJECT_DIR$/cross_dataset_evaluation.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dataset_downloader.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unified_model_comparison.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/external_models/DM_Count/pretrained_models/model_qnrf.pth" beforeDir="false" afterPath="$PROJECT_DIR$/external_models/DM_Count/pretrained_models/model_qnrf.pth" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/improved_dinov2_configs.py" beforeDir="false" afterPath="$PROJECT_DIR$/improved_dinov2_configs.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/train_dinov2_improved.py" beforeDir="false" afterPath="$PROJECT_DIR$/train_dinov2_improved.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,22 +53,48 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Python.dataset_downloader.executor": "Run",
     "Python.main.executor": "Run",
     "Python.test_dinov2_model.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "transcrowd__dinov2",
     "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/Minhyeok/Documents/GitHub/CSE_327_GroupProject",
+    "last_opened_file_path": "C:/Users/Minhyeok/Documents/GitHub/CSE_327_GroupProject/data",
     "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
 }]]></component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Minhyeok\Documents\GitHub\CSE_327_GroupProject\data" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Minhyeok\Documents\GitHub\CSE_327_GroupProject\CSE327FinalProject\data" />
       <recent name="C:\Users\Minhyeok\Documents\GitHub\CSE_327_GroupProject" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.test_dinov2_model">
+  <component name="RunManager" selected="Python.dataset_downloader">
+    <configuration name="dataset_downloader" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="CSE_327_GroupProject" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/dataset_downloader.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="CSE_327_GroupProject" />
       <option name="ENV_FILES" value="" />
@@ -111,6 +141,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.dataset_downloader" />
         <item itemvalue="Python.test_dinov2_model" />
         <item itemvalue="Python.main" />
       </list>
@@ -133,6 +164,17 @@
       <updated>1743511192286</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

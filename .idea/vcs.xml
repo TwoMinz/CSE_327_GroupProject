@@ -2,5 +2,9 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/external_models/CSRNet" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/external_models/DM_Count" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/external_models/MCNN" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/external_models/TransCrowd_Original" vcs="Git" />
   </component>
 </project>
