@@ -5,13 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="29813409-92a2-48a5-ab19-5efc3afd2bcd" name="변경" comment="">
-      <change afterPath="$PROJECT_DIR$/scripts/compare_backbones.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/train_dinov2.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/models/dinov2_backbone.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test_dinov2_model.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/train_dinov2_standalone.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/improved_dinov2_configs.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/train_dinov2_improved.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/config.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
