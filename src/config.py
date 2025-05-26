@@ -21,17 +21,27 @@ os.makedirs(LOG_DIR, exist_ok=True)
 os.makedirs(CHECKPOINT_DIR, exist_ok=True)
 
 # Model configuration
+# Model configuration
 MODEL_CONFIG = {
-    'backbone': 'swin_transformer_v2',  # Options: 'vit', 'swin_transformer', 'swin_transformer_v2'
-    'img_size': 384,                    # Input image size
-    'patch_size': 16,                   # Patch size for the transformer
-    'in_channels': 3,                   # Number of input channels
-    'embed_dim': 128,                   # Embedding dimension
-    'depths': [2, 6, 6, 2],            # Depths of each Swin Transformer stage
-    'num_heads': [4, 8, 16, 32],        # Number of attention heads in different layers
-    'window_size': 12,                  # Window size for Swin Transformer
-    'dropout_rate': 0.2,                # Dropout rate
-    'use_checkpoint': True,            # Whether to use checkpointing to save memory
+    'backbone': 'dinov2',  # Options: 'swin_transformer_v2', 'dinov2'
+    'img_size': 384,  # Input image size
+    'patch_size': 16,  # Patch size for the transformer (used for Swin)
+    'in_channels': 3,  # Number of input channels
+
+    # Swin Transformer V2 specific configs
+    'embed_dim': 128,  # Embedding dimension (for Swin)
+    'depths': [2, 6, 6, 2],  # Depths of each Swin Transformer stage
+    'num_heads': [4, 8, 16, 32],  # Number of attention heads in different layers
+    'window_size': 12,  # Window size for Swin Transformer
+    'use_checkpoint': True,  # Whether to use checkpointing to save memory
+
+    # DINOv2 specific configs
+    'dinov2_size': 'base',  # Options: 'small', 'base', 'large', 'giant'
+    'pretrained': True,  # Whether to use pretrained DINOv2 weights
+    'freeze_backbone': False,  # Whether to freeze backbone weights
+
+    # Common configs
+    'dropout_rate': 0.2,  # Dropout rate
 }
 
 # Training configuration
@@ -54,6 +64,8 @@ TRAIN_CONFIG = {
     'log_freq': 10,                     # Logging frequency (iterations)
     'val_freq': 1,                      # Validation frequency (epochs)
 }
+
+
 
 # Evaluation configuration
 EVAL_CONFIG = {
