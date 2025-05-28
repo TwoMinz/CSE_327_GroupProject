@@ -1,15 +1,8 @@
-# 데이터셋
-/data/
-/ShanghaiTech/
+# 디폴트 무시된 파일
+/shelf/
+/workspace.xml
 
-# 모델 체크포인트
-/outputs/
-/models/
-*.pth
+data/
 
-# Docker 관련
-.docker/
+outputs/
 
-# 환경 관련
-venv/
-.env
